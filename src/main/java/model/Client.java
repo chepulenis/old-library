@@ -7,7 +7,7 @@ public class Client {
     private String name;
     private int phoneNumber;
     private String email;
-    private List <Book> books;
+    private int bookID;
 
     public void setName(String name) {
         this.name = name;
@@ -25,11 +25,6 @@ public class Client {
         return name;
     }
 
-    public void setFirstName(String name) {
-        this.name = name;
-    }
-
-
     public int getPhoneNumber() {
         return phoneNumber;
     }
@@ -46,6 +41,14 @@ public class Client {
         this.email = email;
     }
 
+    public int getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -53,7 +56,7 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", email='" + email + '\'' +
-                ", books=" + books +
+                ", books=" + bookID +
                 '}';
     }
 }

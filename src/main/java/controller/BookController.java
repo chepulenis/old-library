@@ -72,13 +72,17 @@ public class BookController extends HttpServlet {
             bookDAO.createBook(book);
         else {
             book.setId(Integer.parseInt(id));
-            String dateCreated = request.getParameter("dateCreated");
+            String takeDate = request.getParameter("takeDate");
+            String expirationDate = request.getParameter("expirationDate");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date date;
             try {
-                date = sdf.parse(dateCreated);
+                date = sdf.parse(takeDate);
                 java.sql.Date sqlTakeDate = new java.sql.Date(date.getTime());
                 book.setTakeDate(sqlTakeDate);
+                date = sdf.parse(expirationDate);
+                java.sql.Date sqlExpirationDate = new java.sql.Date(date.getTime());
+                book.setExpirationDate(sqlExpirationDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

@@ -15,7 +15,9 @@
         <tr><td>Description:</td><td><input type='text' name='description' value="${book.description}"/></td></tr>
         <tr><td>Genre:</td><td><input type='text' name='genre' value="${book.genre}"/></td></tr>
         <tr><td>ISBN:</td><td><input type='text' name='ISBN' value="${book.ISBN}"/></td></tr>
-        <tr><td>Book:</td><td><input type='text' name='address' value="${book.address}"/></td></tr>
+        <tr><td>Address:</td><td><input type='text' name='address' value="${book.address}"/></td></tr>
+        <tr><td></td><td><input type='hidden' name='takeDate' value="${task.takeDate}"/></td></tr>
+        <tr><td></td><td><input type='hidden' name='expirationDate' value="${task.expirationDate}"/></td></tr>
         <tr><td colspan='2'><input type='submit' value='Save'/></td></tr>
     </table>
 </form>

@@ -28,11 +28,16 @@ public class BookDAOImplementation implements BookDAO{
             preparedStatement.setString( 4, book.getGenre() );
             preparedStatement.setString(5, book.getISBN());
             preparedStatement.setString(6, book.getAddress());
+
             LocalDate localDate = LocalDate.now();
             java.sql.Date sqlDate = new java.sql.Date(Date.valueOf(localDate).getTime());
+            book.setTakeDate(sqlDate);
             preparedStatement.setDate(7, sqlDate);
+
             sqlDate = new java.sql.Date(Date.valueOf(localDate.plusMonths(1)).getTime());
+            book.setExpirationDate(sqlDate);
             preparedStatement.setDate(8,sqlDate);
+            
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -90,6 +95,8 @@ public class BookDAOImplementation implements BookDAO{
                 book.setGenre(resultSet.getString("genre"));
                 book.setISBN(resultSet.getString("ISBN"));
                 book.setAddress(resultSet.getString("address"));
+                book.setTakeDate(resultSet.getDate("takeDate"));
+                book.setExpirationDate(resultSet.getDate("expirationDate"));
                 books.add(book);
             }
             resultSet.close();
@@ -115,6 +122,8 @@ public class BookDAOImplementation implements BookDAO{
                 book.setGenre(resultSet.getString("genre"));
                 book.setISBN(resultSet.getString("ISBN"));
                 book.setAddress(resultSet.getString("address"));
+                book.setTakeDate(resultSet.getDate("takeDate"));
+                book.setExpirationDate(resultSet.getDate("expirationDate"));
             }
             resultSet.close();
             preparedStatement.close();

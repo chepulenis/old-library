@@ -16,7 +16,7 @@ public class ClientDAOImplementation implements ClientDAO {
     @Override
     public void createClient(Client client) {
         try {
-            String query = "insert into clients (id, name, phoneNumber, email) values (?,?,?,?)";
+            String query = "insert into clients (id, name, phoneNumber, email) values (?,?,?,?,?)";
 
             PreparedStatement preparedStatement = conn.prepareStatement(query);
 
@@ -24,6 +24,7 @@ public class ClientDAOImplementation implements ClientDAO {
             preparedStatement.setString( 2, client.getName() );
             preparedStatement.setInt( 3, client.getPhoneNumber() );
             preparedStatement.setString( 4, client.getEmail());
+            preparedStatement.setInt(5,client.getBookID());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -35,15 +36,16 @@ public class ClientDAOImplementation implements ClientDAO {
     @Override
     public void editClient(Client client) {
         try {
-            String query = "update clients set name=?, phoneNumber=?, email=? where id=?";
+            String query = "update clients set name=?, phoneNumber=?, email=?, bookID=?, where id=?";
 
             PreparedStatement preparedStatement = conn.prepareStatement(query);
 
             preparedStatement.setString( 1, client.getName() );
             preparedStatement.setInt(2, client.getPhoneNumber() );
             preparedStatement.setString( 3, client.getEmail() );
+            preparedStatement.setInt( 4, client.getBookID() );
 
-            preparedStatement.setInt(4, client.getId() );
+            preparedStatement.setInt(5, client.getId() );
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -76,6 +78,7 @@ public class ClientDAOImplementation implements ClientDAO {
                 client.setName(resultSet.getString("name"));
                 client.setPhoneNumber(resultSet.getInt("phoneNumber"));
                 client.setEmail(resultSet.getString("email"));
+                client.setBookID(resultSet.getInt("bookID"));
                 clients.add(client);
             }
             resultSet.close();
@@ -99,6 +102,7 @@ public class ClientDAOImplementation implements ClientDAO {
                 client.setName(resultSet.getString("name"));
                 client.setPhoneNumber(resultSet.getInt("phoneNumber"));
                 client.setEmail(resultSet.getString("email"));
+                client.setPhoneNumber(resultSet.getInt("bookID"));
             }
             resultSet.close();
             preparedStatement.close();
