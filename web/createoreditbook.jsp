@@ -11,13 +11,14 @@
 <form action='BookController.do' method='post'>
     <table>
         <tr><td></td><td><input type='hidden' name='id' value="${book.id}"/></td></tr>
-        <tr><td>Name:</td><td><input type='text' name='name' value="${book.name}"/></td></tr>
+        <tr><td>Title:</td><td><input type='text' name='title' value="${book.title}"/></td></tr>
+        <tr><td>Author:</td><td><input type='text' name='author' value="${book.author}"/></td></tr>
         <tr><td>Description:</td><td><input type='text' name='description' value="${book.description}"/></td></tr>
         <tr><td>Genre:</td><td><input type='text' name='genre' value="${book.genre}"/></td></tr>
         <tr><td>ISBN:</td><td><input type='text' name='ISBN' value="${book.ISBN}"/></td></tr>
         <tr><td>Address:</td><td><input type='text' name='address' value="${book.address}"/></td></tr>
-        <tr><td></td><td><input type='hidden' name='takeDate' value="${task.takeDate}"/></td></tr>
-        <tr><td></td><td><input type='hidden' name='expirationDate' value="${task.expirationDate}"/></td></tr>
+        <tr><td></td><td><input type='hidden' name='takeDate' value="${book.takeDate}"/></td></tr>
+        <tr><td></td><td><input type='hidden' name='expirationDate' value="${book.expirationDate}"/></td></tr>
         <tr><td colspan='2'><input type='submit' value='Save'/></td></tr>
     </table>
 </form>

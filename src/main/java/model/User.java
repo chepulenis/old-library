@@ -2,12 +2,12 @@ package model;
 
 import java.util.List;
 
-public class Client {
+public class User {
     private int id;
     private String name;
     private int phoneNumber;
     private String email;
-    private int bookID;
+    private Book book;
 
     public void setName(String name) {
         this.name = name;
@@ -42,21 +42,21 @@ public class Client {
     }
 
     public int getBookID() {
-        return bookID;
+        return book.getId();
     }
 
     public void setBookID(int bookID) {
-        this.bookID = bookID;
+        this.book.setId(bookID);
     }
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", email='" + email + '\'' +
-                ", books=" + bookID +
+                ", bookID=" + book.getId() +
                 '}';
     }
 }

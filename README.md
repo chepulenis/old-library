@@ -30,7 +30,7 @@ CREATE TABLE `books` (
     `takeDate` date NULL,
     `expirationDate` date  NULL,
     PRIMARY KEY(`id`));
-CREATE TABLE `clients` (
+CREATE TABLE `users` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` varchar(30) NULL,
     `email` varchar(30) NULL,

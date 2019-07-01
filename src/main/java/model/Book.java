@@ -4,47 +4,14 @@ import java.sql.Date;
 
 public class Book {
     private int id;
-    private String name;
+    private String title;
+    private String author;
     private String description;
     private String Genre;
-    private Date takeDate;
-
-    public Date getTakeDate() {
-        return takeDate;
-    }
-
-    public void setTakeDate(Date takeDate) {
-        this.takeDate = takeDate;
-    }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    private Date expirationDate;
-
-    public String getGenre() {
-        return Genre;
-    }
-
-    public void setGenre(String genre) {
-        Genre = genre;
-    }
-
     private String ISBN;
     private String address;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    private Date takeDate;
+    private Date expirationDate;
 
     public int getId() {
         return id;
@@ -54,20 +21,20 @@ public class Book {
         this.id = id;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getTitle() {
+        return title;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getDescription() {
@@ -78,17 +45,48 @@ public class Book {
         this.description = description;
     }
 
+    public String getGenre() {
+        return Genre;
+    }
+
+    public void setGenre(String genre) {
+        Genre = genre;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    public Date getTakeDate() {
+        return takeDate;
+    }
+
+    public void setTakeDate(Date takeDate) {
+        this.takeDate = takeDate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", Genre='" + Genre + '\'' +
-                ", takeDate=" + takeDate +
-                ", expirationDate=" + expirationDate +
-                ", ISBN='" + ISBN + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return super.toString();
     }
 }

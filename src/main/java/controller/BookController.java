@@ -3,6 +3,7 @@ package controller;
 import dao.BookDAO;
 import dao.BookDAOImplementation;
 import model.Book;
+import model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
-@WebServlet("/BookController")
+@WebServlet(name = "BookController", urlPatterns =  {"/BookController","/BookController.do"})
 public class BookController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +24,9 @@ public class BookController extends HttpServlet {
     private BookDAO bookDAO;
     public static final String LIST_ALL_BOOKS = "/books.jsp";
     public static final String CREATE_OR_EDIT = "/createoreditbook.jsp";
+    public static final String ADD = "/borrowedbooks.jsp";
+
+
 
 
     public BookController(){
@@ -31,6 +36,19 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding(ENCODING);
+        int page = 1;
+        int recordsPerPage = 5;
+        if (request.getParameter("page")!=null){
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        int numberOfRecords = bookDAO.getNumberOfRecords();
+        int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
+        List<Book> list = bookDAO.listAllBooks((page-1)*recordsPerPage, recordsPerPage);
+        request.setAttribute("books", list);
+        request.setAttribute("numberOfPages", numberOfPages);
+        request.setAttribute("currentPage", page);
+
+
         String forward = "";
         String action = request.getParameter("action");
 
@@ -38,7 +56,6 @@ public class BookController extends HttpServlet {
             forward = LIST_ALL_BOOKS;
             int id = Integer.parseInt(request.getParameter("id"));
             bookDAO.removeBook(id);
-            request.setAttribute("books", bookDAO.listAllBooks());
         }
         else if( action.equalsIgnoreCase("edit")) {
             forward = CREATE_OR_EDIT;
@@ -49,10 +66,18 @@ public class BookController extends HttpServlet {
         else if(action.equalsIgnoreCase("create")) {
             forward = CREATE_OR_EDIT;
         }
+        else if(action.equalsIgnoreCase("add")) {
+            forward = ADD;
+            int id = Integer.parseInt(request.getParameter("id"));
+            User user = new User();
+            user.setBookID(id);
+        }
         else {
             forward = LIST_ALL_BOOKS;
-            request.setAttribute("books", bookDAO.listAllBooks());
+            request.setAttribute("books", list);
         }
+
+
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }
@@ -60,8 +85,20 @@ public class BookController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding(ENCODING);
+        int page = 1;
+        int recordsPerPage = 5;
+        if (request.getParameter("page")!=null){
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        int numberOfRecords = bookDAO.getNumberOfRecords();
+        int numberOfPages = (int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage);
+        List<Book> list = bookDAO.listAllBooks((page-1)*recordsPerPage, recordsPerPage);
+        request.setAttribute("books", list);
+        request.setAttribute("numberOfPages", numberOfPages);
+        request.setAttribute("currentPage", page);
         Book book = new Book();
-        book.setName(request.getParameter("name"));
+        book.setTitle(request.getParameter("title"));
+        book.setAuthor(request.getParameter("author"));
         book.setDescription(request.getParameter("description"));
         book.setGenre(request.getParameter("genre"));
         book.setISBN(request.getParameter("ISBN"));
@@ -89,7 +126,7 @@ public class BookController extends HttpServlet {
             bookDAO.editBook(book);
         }
         RequestDispatcher view = request.getRequestDispatcher(LIST_ALL_BOOKS);
-        request.setAttribute("books", bookDAO.listAllBooks());
+        request.setAttribute("books", list);
         view.forward(request, response);
     }
 }

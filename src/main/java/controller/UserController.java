@@ -1,8 +1,8 @@
 package controller;
 
-import dao.ClientDAO;
-import dao.ClientDAOImplementation;
-import model.Client;
+import dao.UserDAO;
+import dao.UserDAOImplementation;
+import model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/ClientController")
-public class ClientController extends HttpServlet {
+@WebServlet(name = "UserController", urlPatterns = {"/UserController", "/UserController.do"})
+public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public static final String ENCODING = "UTF-8";
-    private ClientDAO clientDAO;
-    public static final String LIST_ALL_CLIENTS = "/clients.jsp";
-    public static final String CREATE_OR_EDIT = "/createoreditclient.jsp";
+    private UserDAO userDAO;
+    public static final String LIST_ALL_USERS = "/users.jsp";
+    public static final String CREATE_OR_EDIT = "/createoredituser.jsp";
 
 
-    public ClientController(){
-        clientDAO = new ClientDAOImplementation();
+    public UserController(){
+        userDAO = new UserDAOImplementation();
     }
 
     @Override
@@ -33,23 +33,23 @@ public class ClientController extends HttpServlet {
         String action = request.getParameter("action");
 
         if( action.equalsIgnoreCase("delete")) {
-            forward = LIST_ALL_CLIENTS;
+            forward = LIST_ALL_USERS;
             int id = Integer.parseInt(request.getParameter("id"));
-            clientDAO.removeClient(id);
-            request.setAttribute("clients", clientDAO.listAllClients());
+            userDAO.removeUser(id);
+            request.setAttribute("users", userDAO.listAllUsers());
         }
         else if( action.equalsIgnoreCase("edit")) {
             forward = CREATE_OR_EDIT;
             int id = Integer.parseInt(request.getParameter("id"));
-            Client client = clientDAO.getClientById(id);
-            request.setAttribute("client", client);
+            User user = userDAO.getUserById(id);
+            request.setAttribute("user", user);
         }
         else if(action.equalsIgnoreCase("create")) {
             forward = CREATE_OR_EDIT;
         }
         else {
-            forward = LIST_ALL_CLIENTS;
-            request.setAttribute("clients", clientDAO.listAllClients());
+            forward = LIST_ALL_USERS;
+            request.setAttribute("users", userDAO.listAllUsers());
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
@@ -58,22 +58,22 @@ public class ClientController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding(ENCODING);
-        Client client = new Client();
-        client.setName(request.getParameter("name"));
-        client.setEmail(request.getParameter("email"));
+        User user = new User();
+        user.setName(request.getParameter("name"));
+        user.setEmail(request.getParameter("email"));
         String phoneNumber = request.getParameter("phoneNumber");
         int number = (phoneNumber!=null) ? Integer.parseInt(phoneNumber) : 0;
-            client.setPhoneNumber(number);
+        user.setPhoneNumber(number);
         String id = request.getParameter("id");
 
         if(id == null || id.isEmpty())
-            clientDAO.createClient(client);
+            userDAO.createUser(user);
         else {
-            client.setId(Integer.parseInt(id));
-            clientDAO.editClient(client);
+            user.setId(Integer.parseInt(id));
+            userDAO.editUser(user);
         }
-        RequestDispatcher view = request.getRequestDispatcher(LIST_ALL_CLIENTS);
-        request.setAttribute("clients", clientDAO.listAllClients());
+        RequestDispatcher view = request.getRequestDispatcher(LIST_ALL_USERS);
+        request.setAttribute("users", userDAO.listAllUsers());
         view.forward(request, response);
     }
 }
