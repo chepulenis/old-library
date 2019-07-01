@@ -22,20 +22,21 @@ CREATE DATABASE library;
 USE library;
 CREATE TABLE `books` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `name` varchar(25) NULL,
-    `description` varchar(250) NULL,
-    `genre` varchar(10) NULL,
-    `ISBN` varchar(20) NULL,
-    `address` varchar(30) NULL,
-    `takeDate` date NULL,
+    `title` VARCHAR(255) NULL,
+    `author` VARCHAR(255) NULL,
+    `description` LONGTEXT NULL,
+    `genre` VARCHAR(255) NULL,
+    `ISBN` VARCHAR(255) NULL,
+    `address` VARCHAR(255) NULL,
+    `takeDate` DATE NULL,
     `expirationDate` date  NULL,
     PRIMARY KEY(`id`));
 CREATE TABLE `users` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `name` varchar(30) NULL,
-    `email` varchar(30) NULL,
-    `phoneNumber` INT(50) NULL,
-    `book_id` INT,
+    `name` VARCHAR(255) NULL,
+    `email` VARCHAR(255) NULL,
+    `phoneNumber` INT NULL,
+    `book_id` INT DEFAULT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`book_id`) REFERENCES books(`id`)
+    CONSTRAINT `user_book_id` FOREIGN KEY (`book_id`) REFERENCES books(`id`)
     );
